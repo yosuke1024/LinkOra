@@ -14,7 +14,7 @@
 
 **Private Development** — 現時点では OSS 化せず、PixApps 内部の非公開プロダクトとして検証する。
 
-現在は M0（足場）完了。パイプラインの骨格は動くが、provider が未実装のため実データはまだ流れない（次: M1 データソース調査 → M2 Wikimedia provider）。
+現在は M2 まで完了: Wikimedia Pageviews provider（knowledge signal）で fetch → normalize → score → export が end-to-end で動き、10 か国の Directed Interest Graph（edges.json / edges.csv）を出力できる。データソースの規約確認記録は [docs/data-sources/](docs/data-sources/) を参照（Wikimedia = GO、Google Trends = 保留、Travel = M5 で実装）。次: M3（時系列と trend）。
 
 ## 開発
 

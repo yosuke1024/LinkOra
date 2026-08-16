@@ -1,6 +1,7 @@
 import { COUNTRY_CODES } from "../../config/countries.js";
 import { enabledProviders } from "../../config/providers.js";
 import type { Period, RawRef } from "../types.js";
+import type { Provider } from "../providers/types.js";
 import type { Storage } from "../storage/types.js";
 import { putJson } from "../storage/types.js";
 
@@ -9,9 +10,13 @@ import { putJson } from "../storage/types.js";
  * of RawRefs per provider under raw/<provider>/<period>/manifest.json.
  * The manifest is what Stage 2 reads, so normalize never re-hits the network.
  */
-export async function runFetch(period: Period, storage: Storage): Promise<RawRef[]> {
+export async function runFetch(
+  period: Period,
+  storage: Storage,
+  providers: readonly Provider[] = enabledProviders(),
+): Promise<RawRef[]> {
   const refs: RawRef[] = [];
-  for (const provider of enabledProviders()) {
+  for (const provider of providers) {
     const providerRefs = await provider.fetch(period, COUNTRY_CODES, storage);
     await putJson(storage, "raw", `${provider.id}/${period}/manifest.json`, providerRefs);
     refs.push(...providerRefs);

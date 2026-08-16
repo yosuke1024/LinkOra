@@ -1,5 +1,6 @@
 import { enabledProviders } from "../../config/providers.js";
 import type { Period, RawRef, SignalRecord } from "../types.js";
+import type { Provider } from "../providers/types.js";
 import type { Storage } from "../storage/types.js";
 import { getJson, putJson } from "../storage/types.js";
 
@@ -8,9 +9,13 @@ import { getJson, putJson } from "../storage/types.js";
  * writing normalized/<period>/<provider>.json. Reads only the raw layer —
  * re-runnable without network access.
  */
-export async function runNormalize(period: Period, storage: Storage): Promise<SignalRecord[]> {
+export async function runNormalize(
+  period: Period,
+  storage: Storage,
+  providers: readonly Provider[] = enabledProviders(),
+): Promise<SignalRecord[]> {
   const all: SignalRecord[] = [];
-  for (const provider of enabledProviders()) {
+  for (const provider of providers) {
     const manifest = await getJson<RawRef[]>(
       storage,
       "raw",
