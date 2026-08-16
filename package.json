@@ -1,0 +1,26 @@
+{
+  "name": "linkora",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Cross-border interest & information-gap intelligence (PixApps internal)",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "linkora": "tsx src/cli.ts",
+    "pipeline": "tsx src/cli.ts run",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "eslint": "^9.17.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0",
+    "typescript-eslint": "^8.18.0",
+    "vitest": "^2.1.0"
+  }
+}
